@@ -1,6 +1,6 @@
 {
   "name": "@klaasman/pubsub-channel",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Cross-window pubsub-channel using postMessage api, comes with a React usePubsubChannel hook.",
   "main": "dist/index.js",
   "keywords": [
@@ -15,10 +15,12 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && yarn build-cjs && yarn build-mjs && yarn build-types",
+    "clean": "rm -rf dist",
+    "build": "npm run build-cjs && npm run build-mjs && npm run build-types",
     "build-mjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=esm --external:react --outfile=dist/index.mjs",
     "build-cjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=cjs --external:react --outfile=dist/index.js",
-    "build-types": "tsc --emitDeclarationOnly --declaration"
+    "build-types": "tsc --emitDeclarationOnly --declaration",
+    "prepare": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
