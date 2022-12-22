@@ -1,0 +1,42 @@
+{
+  "name": "@klaasman/pubsub-channel",
+  "version": "0.0.1",
+  "description": "Cross-window pubsub-channel using postMessage api, comes with a React usePubsubChannel hook.",
+  "main": "dist/index.js",
+  "keywords": [
+    "pubsub",
+    "channel",
+    "postmessage",
+    "react",
+    "hook"
+  ],
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf dist && yarn build-cjs && yarn build-mjs && yarn build-types",
+    "build-mjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=esm --external:react --outfile=dist/index.mjs",
+    "build-cjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=cjs --external:react --outfile=dist/index.js",
+    "build-types": "tsc --emitDeclarationOnly --declaration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klaasman/pubsub-channel.git"
+  },
+  "author": "klaasman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/klaasman/pubsub-channel/issues"
+  },
+  "homepage": "https://github.com/klaasman/pubsub-channel#readme",
+  "devDependencies": {
+    "@types/react": "^18.0.26",
+    "esbuild": "^0.16.10",
+    "react": "^18",
+    "typescript": "^4.9.4"
+  },
+  "peerDependencies": {
+    "react": "^18"
+  }
+}
