@@ -9,27 +9,23 @@ export type PubsubChannel<T> = {
  * Creates a pubsub channel that can be used to publish and subscribe to
  * messages across windows (e.g. window<->iframe).
  *
- * @param event The event name to use for the channel
+ * @param name The name of the channel, make sure this is unique enough
+ * to avoid collisions with other channels.
  */
-export function createPubsubChannel<T>(event: string): PubsubChannel<T> {
-  const id = Math.random().toString(36).substr(2, 9);
+export function createPubsubChannel<T>(name: string): PubsubChannel<T> {
   return {
     publish: (payload: T, target: Window) => {
-      const source = `${id}:${window.location.href}`;
-      target.postMessage(
-        { source, event, payload: JSON.stringify(payload) },
-        "*"
-      );
+      const source = `${name}:${window.location.href}`;
+      target.postMessage({ source, payload: JSON.stringify(payload) }, "*");
     },
 
     subscribe: (callback: (data: T) => void) => {
       function handleMessage(evt: MessageEvent) {
         const isMatchingSource = evt?.data?.source?.match(
-          new RegExp(`^${id}:`)
+          new RegExp(`^${name}:`)
         );
-        const isMatchingEvent = evt?.data?.event === event;
 
-        if (isMatchingSource && isMatchingEvent) {
+        if (isMatchingSource) {
           callback(JSON.parse(evt.data.payload));
         }
       }
