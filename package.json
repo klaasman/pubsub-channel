@@ -20,7 +20,8 @@
     "build-mjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=esm --external:react --outfile=dist/index.mjs",
     "build-cjs": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=cjs --external:react --outfile=dist/index.js",
     "build-types": "tsc --emitDeclarationOnly --declaration",
-    "prepare": "npm run clean && npm run build"
+    "prepare": "npm run clean && npm run build",
+    "watch": "esbuild src/index.ts --bundle --sourcemap --target=es2015 --format=esm --format=cjs --external:react --outdir=dist --watch"
   },
   "repository": {
     "type": "git",
