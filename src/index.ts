@@ -42,6 +42,13 @@ export function usePubsubChannel<T>(
   callback?: (value: T) => void
 ) {
   const [value, setValue] = useState<T | undefined>(initialValue);
+  const prevValue = useRef(value);
+
+  if (JSON.stringify(value) !== JSON.stringify(prevValue.current)) {
+    prevValue.current = value;
+    callback?.(value!);
+  }
+
   const pageRef = useRef(value);
   pageRef.current = value;
 
@@ -52,7 +59,6 @@ export function usePubsubChannel<T>(
     return channel.subscribe((payload) => {
       if (value !== payload) {
         setValue(payload);
-        callbackRef.current?.(payload);
       }
     });
   }, [value, channel]);
