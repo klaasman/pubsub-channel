@@ -1,6 +1,6 @@
 {
   "name": "@klaasman/pubsub-channel",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Cross-window pubsub-channel using postMessage api, comes with a React usePubsubChannel hook.",
   "main": "dist/index.js",
   "keywords": [
